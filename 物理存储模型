@@ -1,0 +1,8 @@
+movies(id string, link string, image string, rating string, binding string, type string, isA int, productType string,productGroup string, runningtime int, studio string, title string )
+people(id string, name string)
+actors(id string, movieid string)
+directors(id string,movieid string)
+producers(id string, movieid string)
+creators(id string, movieid string)
+writers(id string, movieid string)
+review(id string, userID string, profileName string, summary string, text string, score int, helpfulnessFront int, helpfulnessBack int, time string)

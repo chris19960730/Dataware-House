@@ -1,0 +1,78 @@
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/movies_1515305034.csv")
+val selectedData = df.select("_c0", "_c1", "_c2", "_c3", "_c4", "_c5", "_c6", "_c7", "_c8", "_c9", "_c10", "_c11")
+selectedData.write.format("orc").save("/tmp/new6movies")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table movies(id string,link string,image string,rating string,binding string,type string,isA int,productgroup string,productType string,runningtime int,studio string,title string,releasetime string) stored as orc location '/tmp/new7movies'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/csvs/producers.csv")
+val selectedData = df.select("_c0", "_c1");
+selectedData.write.format("orc").save("/tmp/anewproducers")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table producers(id int, movieid string) stored as orc location '/tmp/anewproducers'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/csvs/writers.csv")
+val selectedData = df.select("_c0", "_c1");
+selectedData.write.format("orc").save("/tmp/anewwriters")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table writers(id int, movieid string) stored as orc location '/tmp/anewwriters'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/csvs/creators.csv")
+val selectedData = df.select("_c0", "_c1");
+selectedData.write.format("orc").save("/tmp/anewcreators")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table creators(id int, movieid string) stored as orc location '/tmp/anewcreators'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/csvs/directors.csv")
+val selectedData = df.select("_c0", "_c1");
+selectedData.write.format("orc").save("/tmp/anewdirectors")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table directors(id int, movieid string) stored as orc location '/tmp/anewdirectors'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/csvs/people_1515175236.csv")
+val selectedData = df.select("_c0", "_c1");
+selectedData.write.format("orc").save("/tmp/anewpeople")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table people(id int, name string) stored as orc location '/tmp/anewpeople'")
+hiveContext.sql("show tables").collect().foreach(println)
+
+import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.hive.orc._
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+val df = hiveContext.read.format("com.databricks.spark.csv").option("inferSchema", "true").load("/user/review_csv.csv")
+val selectedData = df.select("_c0", "_c1", "_c2", "_c3", "_c4", "_c5", "_c6", "_c7", "_c8", "_c9");
+selectedData.write.format("orc").save("/tmp/anewreviews")
+
+hiveContext.sql("use hive")
+hiveContext.sql("create external table reviews(id int, productid string, userid string, profilename string, helpfulnessfront int, helpfulnessback int, score int, time long, summary string, text string) stored as orc location '/tmp/anewreviews'")
+hiveContext.sql("show tables").collect().foreach(println)
